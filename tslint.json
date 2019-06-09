@@ -16,7 +16,8 @@
         "object-shorthand-properties-first": false,
         "align": false,
         "ter-arrow-parens": false,
-        "prefer-template": false
+        "prefer-template": false,
+        "ter-prefer-arrow-callback": false
     },
     "rulesDirectory": [],
     "autoFixOnSave": true

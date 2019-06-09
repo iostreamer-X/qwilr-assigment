@@ -17,6 +17,7 @@ const snakeCase = require('snake-case');
 import { PassThrough } from 'stream';
 import * as statsD from 'hot-shots';
 const config = require(`${process.cwd()}/dist/config.json`);
+import * as bcrypt from 'bcryptjs'
 
 export class Helper {
 	static extractHeaders(prefilledData: KeyWithNullableValue[]) {
@@ -834,6 +835,29 @@ export class Helper {
 			},
 		};
 	}
+
+	static hashPassword(plain) {
+		return new Promise(function(resolve, reject) {
+			// Generate salt
+			bcrypt.genSalt(2, function(err, salt) {
+				if (err) reject(err);
+				// Generate hash with salt
+				bcrypt.hash(plain, salt, function(err, hash) {
+					if (err) reject(err);
+					resolve(hash);
+				});
+			});
+		});
+	};
+	
+	static verifyPassword(plain, hash) {
+		return new Promise(function(resolve, reject) {
+			bcrypt.compare(plain, hash, function(err, res) {
+				if (err) reject(err);
+					resolve(res);
+			});
+		});
+	};
 }
 
 export type AllowedValueType = string | boolean  | Date | string[] | null | number | undefined | KeyWithNullableValue;
