@@ -27,4 +27,6 @@ export class Constants {
 
 	static readonly DEFAULT_NUMBER_OF_RECORDS = 10;
 	static readonly MAX_NUMBER_OF_RECORDS = 100;
+
+	static readonly USER_COLLECTION = 'users';
 }

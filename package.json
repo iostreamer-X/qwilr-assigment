@@ -43,6 +43,7 @@
     "autoprefixer": "^9.3.1",
     "aws-sdk": "^2.382.0",
     "bcrypt": "^3.0.2",
+    "bcryptjs": "^2.4.3",
     "bluebird": "3.5.2",
     "camelcase": "5.0.0",
     "child-process-promise": "^2.2.1",
