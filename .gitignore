@@ -36,7 +36,7 @@ build/Release
 node_modules/
 jspm_packages/
 
-# TypeScript v1 declaration files
+# Typescript v1 declaration files
 typings/
 
 # Optional npm cache directory
@@ -57,5 +57,32 @@ typings/
 # dotenv environment variables file
 .env
 
-# next.js build output
-.next
+# Compiled Javascript
+/dist/*
+!/dist/public
+
+# configuration
+config.json
+pm2.json
+pm2-process.json
+
+.env
+config-files/
+newrelic.js
+**/.DS_Store
+src/external/strategies/default/config.ts
+
+#editor
+.vscode
+
+#orm
+ormconfig.json
+ormconfig.demo.json
+ormcomfig.dev.json
+ormconfig.example.json
+
+npm-shrinkwrap.json
+
+package-lock.json
+deploy
+dist
