@@ -1,6 +1,6 @@
 export function setupRoutes(instance) {
     instance.get('/', function (req, res) {
-		res.render('index', { title: 'Hey', message: 'Hello there!' });
+		res.render('index', { stockData: [{ name: 'Yay', price: '23' }] });
     });
     
     instance.get('/login', function (req, res) {
