@@ -8,7 +8,9 @@
     "build": "./node_modules/.bin/tsc -p tsconfig.json",
     "build-watch": "tsc -p tsconfig.json -w",
     "start": "PORT=5000 USE_DEFAULT_ORG=yes NODE_ENV=dev nodemon dist/src/server.js",
-    "lint": "./node_modules/.bin/tslint -c tslint.json -p tsconfig.json"
+    "lint": "./node_modules/.bin/tslint -c tslint.json -p tsconfig.json",
+    "copy-assets": "rm -rf dist/public && cp -r public dist/public",
+    "watch-assets": "nodemon --watch public -e pug --exec npm run copy-assets"
   },
   "repository": {
     "type": "git",
@@ -81,6 +83,7 @@
     "pg": "7.4.3",
     "pg-query-stream": "^2.0.0",
     "prettier": "^1.16.4",
+    "pug": "^2.0.3",
     "rand-token": "^0.4.0",
     "raven": "^2.6.4",
     "reflect-metadata": "0.1.12",
@@ -88,6 +91,7 @@
     "request": "^2.88.0",
     "request-promise": "^4.2.2",
     "rxjs": "6.3.2",
+    "semantic-ui": "^2.4.2",
     "sendgrid": "^5.2.3",
     "snake-case": "^2.1.0",
     "socket.io-client": "^2.2.0",

@@ -86,3 +86,6 @@ npm-shrinkwrap.json
 package-lock.json
 deploy
 dist
+
+semantic
+public/semantic

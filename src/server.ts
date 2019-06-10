@@ -15,6 +15,7 @@ import { GlobalExceptionFilter } from './common/filters/global-exception.filter'
 import { setHeaders } from './common/SetHeaders';
 import * as cors from 'cors';
 import { DefaultValidatorPipe } from './common/validators/default-validator/default-validator.pipe';
+import { setupRoutes } from './routes';
 const config = require('../config.json');
 const pathLocator = require('path');
 const instance = express();
@@ -77,6 +78,12 @@ function setupMiddlewares(app, instance) {
 	);
 }
 
+function setupPug(app, instance) {
+	instance.use(express.static(__dirname + '/../public'))
+	instance.set('views', __dirname + '/../public/views');
+	instance.set('view engine', 'pug');
+}
+
 function setup(app, instance) {
 	setupMiddlewares(app, instance);
 	setupPromise();
@@ -86,6 +93,8 @@ function setup(app, instance) {
 	setupInterceptors(app);
 	setupFilters(app);
 	setupPipes(app);
+	setupPug(app, instance);
+	setupRoutes(instance);
 }
 
 async function bootstrap() {
