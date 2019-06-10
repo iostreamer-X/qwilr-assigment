@@ -53,4 +53,10 @@ export class BalanceService {
 
         await this.incrementBalance(user.email, -balance, session);
     }
+
+    async getBalance(user: any) {
+        return {
+            balance: user.balance
+        };
+    }
 }
