@@ -5,10 +5,12 @@ export class Constants {
 	static readonly WRONG_AUTHENTICATION_ERROR = 'WRONG_AUTHENTICATION';
 	static readonly INTERNAL_SERVER_ERROR = 'INTERNAL_SERVER';
 	static readonly DATABASE_SERVICE = 'DATABASE_SERVICE_TOKEN';
+	static readonly CLIENT_SERVICE = 'CLIENT_SERVICE_TOKEN';
 	static readonly MONGO_DATABASE_SERVICE = 'MONGO_DATABASE_SERVICE_TOKEN';
 	static readonly ORGANISATION_SERVICE_TOKEN = 'OrganisationConfigService';
 	static readonly DEFAULT_APP_NAME = 'SHIPPERS_DASHBOARD';
 	static readonly LTL_COURIER_PARTNER_OBJECT = 'LTL_COURIER_PARTNER';
+	static readonly STOCK_MASTER_DATA_COLLECTION = 'stock_master_data';
 
 	static readonly CONCURRENCY_LIMIT = 10;
 	static readonly CONCURRENCY_LIMIT_FOR_LOCK = 2;
@@ -29,4 +31,5 @@ export class Constants {
 	static readonly MAX_NUMBER_OF_RECORDS = 100;
 
 	static readonly USER_COLLECTION = 'users';
+	static readonly ORDER_COLLECTION = 'orders';
 }

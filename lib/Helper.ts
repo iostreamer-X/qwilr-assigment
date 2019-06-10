@@ -853,8 +853,10 @@ export class Helper {
 	static verifyPassword(plain, hash) {
 		return new Promise(function(resolve, reject) {
 			bcrypt.compare(plain, hash, function(err, res) {
-				if (err) reject(err);
-					resolve(res);
+				if (err) { 
+					reject(err)
+				};
+				resolve(res);
 			});
 		});
 	};

@@ -29,8 +29,8 @@ function setUpSentry(app, instance) {
 
 function setupAPIDocs(app, instance) {
 	const options = new DocumentBuilder()
-		.setTitle('LTL API Server')
-		.setDescription('API documentation for LTL API Server')
+		.setTitle('Stock Portfolio Qwillr API Server')
+		.setDescription('Stock Portfolio Qwillr APIs')
 		.setVersion('1.0')
 		.setSchemes('http', 'https')
 		.build();
