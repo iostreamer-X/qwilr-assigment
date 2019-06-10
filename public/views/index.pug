@@ -2,6 +2,16 @@ html
   include head.pug
   body
     div.ui.grid
+      div.sixteen.wide.column
+        table.ui.inverted.teal.table
+          tbody
+            tr
+              td
+                div.ui.action.input
+                  input#amount(type="text" placeholder="Amount")
+                  button.ui.button Add Balance
+              td.right.aligned
+                button.ui.button Portfolio
       div.eight.wide.column
         table.ui.celled.table
           thead
