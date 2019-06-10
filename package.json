@@ -10,7 +10,7 @@
     "start": "PORT=5000 USE_DEFAULT_ORG=yes NODE_ENV=dev nodemon dist/src/server.js",
     "lint": "./node_modules/.bin/tslint -c tslint.json -p tsconfig.json",
     "copy-assets": "rm -rf dist/public && cp -r public dist/public",
-    "watch-assets": "nodemon --watch public -e pug --exec npm run copy-assets"
+    "watch-assets": "nodemon --watch public -e pug,js,css --exec npm run copy-assets"
   },
   "repository": {
     "type": "git",

@@ -1,0 +1,22 @@
+html
+  include head.pug
+  style
+    include ../css/login.css
+  script
+    include ../js/login.js
+  body
+    div.ui.middle.aligned.center.aligned.grid
+        div.column
+            form.ui.large.form
+                div.ui.stacked.segment
+                    div.field
+                        div.ui.left.icon.input
+                            i.user.icon
+                            input(type='text', id='loginEmail', placeholder='E-mail address')
+                    div.field
+                        div.ui.left.icon.input
+                            i.lock.icon
+                            input(type='password', id='loginPassword', placeholder='Password')
+                    input.ui.fluid.large.teal.submit.button(type="submit")
+            div.ui.negative.message(id = 'loginError')
+                div.header(id = 'loginErrorMessage') Invalid credentials!
