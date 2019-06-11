@@ -14,9 +14,8 @@ export class RootService {
     }
 
     async getAppData(user: any) {
-        const balance = await this.balanceService.getBalance(user);
+        const { balance } = await this.balanceService.getBalance(user);
         const stockData = await this.stocksService.getStockData();
-
         return {
             stockData,
             balance
@@ -25,7 +24,7 @@ export class RootService {
 
     async renderApp(user, res) {
         const appData = await this.getAppData(user);
-        res.render('app', { stockData: appData.stockData, balance: appData.balance });
+        res.render('app', { stockData: appData.stockData, balance: `Current Balance: ${appData.balance}` });
     }
 
     async renderIndex(res) {

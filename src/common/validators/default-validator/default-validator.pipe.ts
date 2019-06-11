@@ -6,6 +6,7 @@ import { WrongInput } from '../../dto/WrongInput';
 @Injectable()
 export class DefaultValidatorPipe implements PipeTransform {
 	async transform(value: any, metadata: ArgumentMetadata) {
+		console.log(value);
 		const { metatype } = metadata;
 		const object = !metatype ? value : plainToClass(metatype, value);
 		const errors = await validate(object);

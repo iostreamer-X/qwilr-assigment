@@ -1,25 +1,48 @@
 html
   include head.pug
+  style
+    include ../css/app.css
+  script
+    include ../js/app.js
   body
-    div.ui.grid
+    div.ui.grid#header
       div.sixteen.wide.column
         table.ui.inverted.teal.table
           tbody
             tr
-              td
-                div.ui.action.input
+              td.two.wide
+                div.ui.action.left.labeled.input
+                  div.ui.basic.label#balance= balance
                   input#amount(type="text" placeholder="Amount")
-                  button.ui.button Add Balance
+                  button.ui.button#addBalanceButton Add Balance
               td.right.aligned
                 button.ui.button Portfolio
-      div.eight.wide.column
+    div.ui.grid#dataView
+      div.ten.wide.column
         table.ui.celled.table
           thead
             tr
-              th(colspan='3')
-                p Stock Prices
+              th Name
+              th Price
+              th Open
+              th Close
+              th Low
+              th High
+              th Volume
+              th Buy
           tbody
             each object in stockData
               tr
                 td(data-label='Name')= object.name
                 td(data-label='Price')= object.price
+                td(data-label='Open')= object.ohclv.o
+                td(data-label='Close')= object.ohclv.c
+                td(data-label='High')= object.ohclv.h
+                td(data-label='Low')= object.ohclv.l
+                td(data-label='Volume')= object.ohclv.v
+                td(data-label='Buy')
+                  button.ui.icon.button
+                    i.shopping.cart.icon
+      div.two.wide.column
+        div.ui.vertical.divider Trade
+      div.four.wide.column
