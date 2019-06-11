@@ -25,8 +25,12 @@ export class UserService {
         const hashedPassword = await Helper.hashPassword(dto.password);
         await this.db.collection(Constants.USER_COLLECTION).insertOne({
             email: dto.email,
-            password: hashedPassword
+            password: hashedPassword,
+            balance: 0
         });
+        return {
+            token: this.getLoginToken({ email: dto.email })
+        };
     }
 
     async verifyUser(email: string, password: string) {
