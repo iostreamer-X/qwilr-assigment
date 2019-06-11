@@ -64,7 +64,7 @@ export class PortfolioService {
                             {
                                 $group: {
                                     _id: { email: "$email", stockName: "$name" },
-                                    count: { $sum: 1 },
+                                    count: { $sum: "$quantity" },
                                 }
                             }       
                         ],
