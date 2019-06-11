@@ -15,7 +15,7 @@ export class UserAuthenticationMiddleware implements NestMiddleware {
 	resolve(): MiddlewareFunction {
 		return async (req, res, next) => {
 			try {
-				const token = req.header('token');
+				const token = req.header('token') || req.cookies.token;
 				const payload: any = jwt.verify(token, this.configService.getJWTSecretKey());
 				if (!payload) {
 					throw new WrongAuthentication('Invalid token!');

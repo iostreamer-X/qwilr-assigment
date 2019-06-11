@@ -58,4 +58,8 @@ export class UserService {
         );
         return token;
     }
+
+    async renderLogin(res) {
+        res.render('login');
+    }
 }
