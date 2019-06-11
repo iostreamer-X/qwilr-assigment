@@ -41,17 +41,28 @@ html
                 td(data-label='Low')= object.ohclv.l
                 td(data-label='Volume')= object.ohclv.v
                 td(data-label='Buy')
-                  button.ui.icon.button
+                  button.ui.icon.button#addToCartButton(stockName=object.name, stockPrice=object.price)
                     i.shopping.cart.icon
       div.two.wide.column
         div.ui.vertical.divider Trade
       div.four.wide.column
-        div.ui.card
+        div.ui.card#cart
           div.content
-            div.header AAPL
+            div.header#stockBuyName
           div.content
             p Some description if possible...
           div.content
-            div.sub.header 22
+            div.sub.header#stockBuyPrice
           div.extra.content
             button.ui.button#buyButton Buy
+          div.extra.content
+            div.ui.right.action.input
+              input(type='text', placeholder='Quantity')#stockQuantity
+              button.ui.icon.button#addStockQuantity
+                i.add.icon
+          div.extra.content
+            div.ui.negative.message#buyError
+              p#buyErrorMessage
+          div.extra.content
+            div.ui.positive.message#buySuccess
+              p Stock bought successfully!
