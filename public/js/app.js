@@ -29,9 +29,10 @@ function handleStockQuantity() {
 }
 
 function handleAddToCart() {
-    $('#addToCartButton').click(function (event) {
-        const stockName = $('#addToCartButton').attr('stockName');
-        const stockPrice = $('#addToCartButton').attr('stockPrice');
+    $('button[id^=addToCartButton]').click(function (event) {
+        $('#cartModal').modal('show');
+        const stockName = $(`#${event.currentTarget.id}`).attr('stockName');
+        const stockPrice = $(`#${event.currentTarget.id}`).attr('stockPrice');
         $('#buyButton').attr('stockName', stockName);
         $('#buyButton').attr('stockPrice', stockPrice);
         viewCart(stockName, stockPrice);

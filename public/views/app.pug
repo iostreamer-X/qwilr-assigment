@@ -18,7 +18,7 @@ html
               td.right.aligned
                 button.ui.button#portfolioButton Portfolio
     div.ui.grid#dataView
-      div.ten.wide.column
+      div.sixteen.wide.column
         table.ui.celled.table
           thead
             tr
@@ -31,38 +31,30 @@ html
               th Volume
               th Buy
           tbody
-            each object in stockData
+            each object, index in stockData
               tr
                 td(data-label='Name')= object.name
                 td(data-label='Price')= object.price
-                td(data-label='Open')= object.ohclv.o
-                td(data-label='Close')= object.ohclv.c
-                td(data-label='High')= object.ohclv.h
-                td(data-label='Low')= object.ohclv.l
-                td(data-label='Volume')= object.ohclv.v
+                td(data-label='Open')= (object.ohclv || {}).o
+                td(data-label='Close')= (object.ohclv || {}).c
+                td(data-label='High')= (object.ohclv || {}).h
+                td(data-label='Low')= (object.ohclv || {}).l
+                td(data-label='Volume')= (object.ohclv || {}).v
                 td(data-label='Buy')
-                  button.ui.icon.button#addToCartButton(stockName=object.name, stockPrice=object.price)
+                  button.ui.icon.button(id='addToCartButton'+index, index=index, stockName=object.name, stockPrice=object.price)
                     i.shopping.cart.icon
-      div.two.wide.column
-        div.ui.vertical.divider Trade
-      div.four.wide.column
-        div.ui.card#cart
-          div.content
-            div.header#stockBuyName
-          div.content
-            p Some description if possible...
-          div.content
-            div.sub.header#stockBuyPrice
-          div.extra.content
-            button.ui.button#buyButton Buy
-          div.extra.content
-            div.ui.right.action.input
-              input(type='text', placeholder='Quantity')#stockQuantity
-              button.ui.icon.button#addStockQuantity
-                i.add.icon
-          div.extra.content
-            div.ui.negative.message#buyError
-              p#buyErrorMessage
-          div.extra.content
-            div.ui.positive.message#buySuccess
-              p Stock bought successfully!
+      div.tiny.ui.modal#cartModal
+        div.teal.header#stockBuyName
+        div.content
+          div.description 
+            div.header#stockBuyPrice
+        div.actions
+          div.ui.right.action.input
+            input(type='text', placeholder='Quantity')#stockQuantity
+            button.ui.icon.button#addStockQuantity
+              i.add.icon
+          button.ui.button#buyButton Buy
+          div.ui.negative.message#buyError
+            p#buyErrorMessage
+          div.ui.positive.message#buySuccess
+            p Stock bought successfully!

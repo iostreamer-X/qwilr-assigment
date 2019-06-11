@@ -1,9 +1,7 @@
 html
   include head.pug
   style
-    include ../css/app.css
-  script
-    include ../js/app.js
+    include ../css/portfolio.css
   body
     div.ui.grid#header
       div.sixteen.wide.column
@@ -12,12 +10,12 @@ html
             tr
               td.two.wide
                 a(href='/app')
-                  button.ui.button#addBalanceButton Back
-    div.ui.grid#dataView
+                  button.ui.button Back
+    div.ui.centered.grid#dataView
       div.sixteen.wide.column
         div.ui.statistics
           each object in portfolio.aggregatedData
-            div.statistic
+            div.blue.statistic
               div.value= object.count
               div.label= object._id.stockName
       div.sixteen.wide.column
