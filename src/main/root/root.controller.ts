@@ -23,6 +23,11 @@ export class RootController {
 	app(@Req() req, @Res() res) {
 		return this.rootService.renderApp(req.user, res);
     }
+
+    @Get('/portfolio')
+	portfolio(@Req() req, @Res() res) {
+		return this.rootService.renderPortfolio(req.user, res);
+    }
     
     @Get('/')
 	index(@Res() res) {

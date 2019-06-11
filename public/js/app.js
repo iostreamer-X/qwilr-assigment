@@ -5,6 +5,7 @@ $(document)
     handleAddToCart();
     handleStockQuantity();
     handleBuy();
+    handlePortfolio();
 
     $('#buyError').hide();
     $('#buySuccess').hide();
@@ -51,6 +52,12 @@ function handleAddBalance() {
         } catch (error) {
             console.log(error);
         }
+	});
+}
+
+function handlePortfolio() {
+    $('#portfolioButton').click(async function (event) {
+        window.location.href = '/portfolio';
 	});
 }
 

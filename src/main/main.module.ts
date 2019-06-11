@@ -21,6 +21,7 @@ export class MainModule implements NestModule {
 			BalanceController,
 			PortfolioController,
 			{ path: '/app', method: RequestMethod.ALL },
+			{ path: '/portfolio', method: RequestMethod.ALL },
 		);
 	}
 }

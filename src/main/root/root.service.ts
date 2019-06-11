@@ -31,4 +31,8 @@ export class RootService {
         res.render('index');
     }
 
+    async renderPortfolio(user, res) {
+        this.portfolioService.renderPortfolio(user, res);
+    }
+
 }

@@ -85,4 +85,10 @@ export class PortfolioService {
 
         return data;
     }
+
+    async renderPortfolio(user, res) {
+        const data = await this.get(user);
+        console.log(data[0].aggregatedData);
+        res.render('portfolio', { portfolio: data[0] });
+    }
 }
