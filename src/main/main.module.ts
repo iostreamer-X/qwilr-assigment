@@ -1,4 +1,4 @@
-import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
+import { Module, NestModule, MiddlewareConsumer, RequestMethod } from '@nestjs/common';
 import { UserModule } from './user/user.module';
 import { DatabaseModule } from './database/database.module';
 import { ConfigModule } from './config/config.module';
@@ -7,9 +7,11 @@ import { UserAuthenticationMiddleware } from '../common/middlewares/user-authent
 import { BalanceController } from './balance/balance.controller';
 import { PortfolioModule } from './portfolio/portfolio.module';
 import { PortfolioController } from './portfolio/portfolio.controller';
+import { RootModule } from './root/root.module';
+import { StocksModule } from './stocks/stocks.module';
 
 @Module({
-	imports: [UserModule, DatabaseModule, ConfigModule, BalanceModule, PortfolioModule]
+	imports: [UserModule, DatabaseModule, ConfigModule, BalanceModule, PortfolioModule, RootModule, StocksModule]
 })
 export class MainModule implements NestModule {
 	configure(consumer: MiddlewareConsumer) {
@@ -17,7 +19,9 @@ export class MainModule implements NestModule {
 		.apply(UserAuthenticationMiddleware)
 		.forRoutes(
 			BalanceController,
-			PortfolioController
+			PortfolioController,
+			{ path: '/app', method: RequestMethod.ALL },
+			{ path: '/portfolio', method: RequestMethod.ALL },
 		);
 	}
 }

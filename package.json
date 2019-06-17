@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "./node_modules/.bin/tsc -p tsconfig.json",
+    "build": "./node_modules/.bin/tsc -p tsconfig.json && cp config.json dist/config.json",
     "build-watch": "tsc -p tsconfig.json -w",
-    "start": "PORT=5000 USE_DEFAULT_ORG=yes NODE_ENV=dev nodemon dist/src/server.js",
+    "start": "node dist/src/server.js",
+    "watch": "PORT=5000 USE_DEFAULT_ORG=yes NODE_ENV=dev nodemon dist/src/server.js",
     "lint": "./node_modules/.bin/tslint -c tslint.json -p tsconfig.json",
     "copy-assets": "rm -rf dist/public && cp -r public dist/public",
     "watch-assets": "nodemon --watch public -e pug,js,css --exec npm run copy-assets"
@@ -53,6 +54,7 @@
     "child_process": "^1.0.2",
     "class-transformer-fixed": "^0.1.8",
     "class-validator": "^0.9.1",
+    "cookie-parser": "^1.4.4",
     "cors": "^2.8.5",
     "crypto-js": "^3.1.9-1",
     "cssmin": "^0.4.3",

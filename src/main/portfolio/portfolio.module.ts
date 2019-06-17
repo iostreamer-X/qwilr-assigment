@@ -6,6 +6,7 @@ import { BalanceModule } from '../balance/balance.module';
 @Module({
   imports: [BalanceModule],
   providers: [PortfolioService],
+  exports: [PortfolioService],
   controllers: [PortfolioController]
 })
 export class PortfolioModule {}

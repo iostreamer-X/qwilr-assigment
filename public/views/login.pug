@@ -17,6 +17,10 @@ html
                         div.ui.left.icon.input
                             i.lock.icon
                             input(type='password', id='loginPassword', placeholder='Password')
-                    input.ui.fluid.large.teal.submit.button(type="submit")
+                    div.ui.grid
+                      div.ui.eight.wide.column
+                        div.ui.fluid.teal.button#logInButton Log In
+                      div.ui.eight.wide.column
+                        div.ui.fluid.black.button#signUpButton Sign Up
             div.ui.negative.message(id = 'loginError')
                 div.header(id = 'loginErrorMessage') Invalid credentials!

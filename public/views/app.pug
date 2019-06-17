@@ -1,0 +1,60 @@
+html
+  include head.pug
+  style
+    include ../css/app.css
+  script
+    include ../js/app.js
+  body
+    div.ui.grid#header
+      div.sixteen.wide.column
+        table.ui.inverted.teal.table
+          tbody
+            tr
+              td.two.wide
+                div.ui.action.left.labeled.input
+                  div.ui.basic.label#balance= balance
+                  input#amount(type="text" placeholder="Amount")
+                  button.ui.button#addBalanceButton Add Balance
+              td.right.aligned
+                button.ui.button#portfolioButton Portfolio
+    div.ui.grid#dataView
+      div.sixteen.wide.column
+        table.ui.celled.table
+          thead
+            tr
+              th Name
+              th Price
+              th Open
+              th Close
+              th Low
+              th High
+              th Volume
+              th Buy
+          tbody
+            each object, index in stockData
+              tr
+                td(data-label='Name')= object.name
+                td(data-label='Price')= object.price
+                td(data-label='Open')= (object.ohclv || {}).o
+                td(data-label='Close')= (object.ohclv || {}).c
+                td(data-label='High')= (object.ohclv || {}).h
+                td(data-label='Low')= (object.ohclv || {}).l
+                td(data-label='Volume')= (object.ohclv || {}).v
+                td(data-label='Buy')
+                  button.ui.icon.button(id='addToCartButton'+index, index=index, stockName=object.name, stockPrice=object.price)
+                    i.shopping.cart.icon
+      div.tiny.ui.modal#cartModal
+        div.teal.header#stockBuyName
+        div.content
+          div.description 
+            div.header#stockBuyPrice
+        div.actions
+          div.ui.right.action.input
+            input(type='text', placeholder='Quantity')#stockQuantity
+            button.ui.icon.button#addStockQuantity
+              i.add.icon
+          button.ui.button#buyButton Buy
+          div.ui.negative.message#buyError
+            p#buyErrorMessage
+          div.ui.positive.message#buySuccess
+            p Stock bought successfully!

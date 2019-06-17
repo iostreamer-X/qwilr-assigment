@@ -64,7 +64,7 @@ export class PortfolioService {
                             {
                                 $group: {
                                     _id: { email: "$email", stockName: "$name" },
-                                    count: { $sum: 1 },
+                                    count: { $sum: "$quantity" },
                                 }
                             }       
                         ],
@@ -84,5 +84,10 @@ export class PortfolioService {
         ).toArray();
 
         return data;
+    }
+
+    async renderPortfolio(user, res) {
+        const data = await this.get(user);
+        res.render('portfolio', { portfolio: data[0] });
     }
 }

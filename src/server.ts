@@ -19,6 +19,7 @@ import { setupRoutes } from './routes';
 const config = require('../config.json');
 const pathLocator = require('path');
 const instance = express();
+import * as cookieParser from 'cookie-parser';
 
 function setUpSentry(app, instance) {
 	Sentry.init({
@@ -84,7 +85,12 @@ function setupPug(app, instance) {
 	instance.set('view engine', 'pug');
 }
 
+function setupCookieParser(app, instance) {
+	instance.use(cookieParser());	
+}
+
 function setup(app, instance) {
+	setupCookieParser(app, instance);
 	setupMiddlewares(app, instance);
 	setupPromise();
 	setUpSentry(app, instance);
@@ -94,7 +100,6 @@ function setup(app, instance) {
 	setupFilters(app);
 	setupPipes(app);
 	setupPug(app, instance);
-	setupRoutes(instance);
 }
 
 async function bootstrap() {

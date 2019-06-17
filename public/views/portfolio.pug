@@ -1,0 +1,35 @@
+html
+  include head.pug
+  style
+    include ../css/portfolio.css
+  body
+    div.ui.grid#header
+      div.sixteen.wide.column
+        table.ui.inverted.teal.table
+          tbody
+            tr
+              td.two.wide
+                a(href='/app')
+                  button.ui.button Back
+    div.ui.centered.grid#dataView
+      div.sixteen.wide.column
+        div.ui.statistics
+          each object in portfolio.aggregatedData
+            div.blue.statistic
+              div.value= object.count
+              div.label= object._id.stockName
+      div.sixteen.wide.column
+        table.ui.celled.table
+          thead
+            tr
+              th Name
+              th Quantity
+              th Bought At Price
+              th Bought On
+          tbody
+            each object in portfolio.totalData
+              tr
+                td(data-label='Name')= object.name
+                td(data-label='Quantity')= object.quantity
+                td(data-label='Bought At Price')= object.boughtAtPrice
+                td(data-label='Bought On')= object.createdAt.toDateString()
