@@ -2,6 +2,7 @@ import { Controller, Post, Req, Body, Get } from '@nestjs/common';
 import { ApiUseTags, ApiImplicitHeader } from '@nestjs/swagger';
 import { PortfolioService } from './portfolio.service';
 import { BuyStocksDto } from './dto/buy-stocks.dto';
+import { SellStocksDto } from './dto/sell-stocks.dto';
 
 
 @ApiUseTags('Balance')
@@ -16,6 +17,13 @@ export class PortfolioController {
 	add(@Req() req, @Body() dto: BuyStocksDto) {
         const { user } = req;
 		return this.portfolioService.buyStocks(user, dto);
+    }
+
+    @ApiImplicitHeader({ name: 'token' })
+    @Post('/stocks/sell')
+	sell(@Req() req, @Body() dto: SellStocksDto) {
+        const { user } = req;
+		return this.portfolioService.sellStocks(user, dto);
     }
 
     @ApiImplicitHeader({ name: 'token' })

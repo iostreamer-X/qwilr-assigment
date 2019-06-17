@@ -11,12 +11,16 @@ html
           tbody
             tr
               td.two.wide
+                div.ui.action.input
+                  input#searchStockName(type="text" placeholder="Search stock name")
+                  button.ui.button#searchStockButton Search
+              td.right.aligned
+                button.ui.button#sellModalButton Sell
+                button.ui.button#portfolioButton Portfolio
                 div.ui.action.left.labeled.input
                   div.ui.basic.label#balance= balance
                   input#amount(type="text" placeholder="Amount")
                   button.ui.button#addBalanceButton Add Balance
-              td.right.aligned
-                button.ui.button#portfolioButton Portfolio
     div.ui.grid#dataView
       div.sixteen.wide.column
         table.ui.celled.table
@@ -57,4 +61,23 @@ html
           div.ui.negative.message#buyError
             p#buyErrorMessage
           div.ui.positive.message#buySuccess
+            p Stock bought successfully!
+      div.tiny.ui.modal#sellModal
+        div.teal.header Sell Stocks
+        div.content
+          table
+            tr
+              td.two.wide
+                div.ui.input
+                  input(type='text', placeholder='Stock Name')#sellStockName
+              td.right.aligned
+                div.ui.right.action.input
+                  input(type='text', placeholder='Quantity')#sellQuantity
+                  button.ui.icon.button#addSellQuantity
+                    i.add.icon
+        div.actions
+          button.ui.button#sellButton Sell
+          div.ui.negative.message#sellError
+            p#sellErrorMessage
+          div.ui.positive.message#sellSuccess
             p Stock bought successfully!
