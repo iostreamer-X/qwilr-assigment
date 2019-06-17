@@ -19,35 +19,46 @@ export class PortfolioService {
     }
 
     async sellStocks(user: any, dto: SellStocksDto) {
-        if (!user.stocks || !user.stocks[dto.name]) {
-            throw new WrongInput(`You don't have that stock in your portfolio!`);
-        }
-
-        if (user.stocks[dto.name] < dto.quantity) {
-            throw new WrongInput(`You don't have enough of that stock!`);
-        }
-        const stockData = await this.stocksService.getSingleStockData(dto.name);
-        if (!stockData) {
-            throw new WrongInput('Invalid Stock!');
-        }
-        const sellingPrice = dto.quantity * stockData.price;
-        await this.balanceService.addBalance(user, { balance: sellingPrice });
-        const userStockBalanceUpdateQueryObject = (_ => {
-            if (user.stocks[dto.name] > dto.quantity) {
+        const session = this.client.startSession();
+        try {
+            if (!user.stocks || !user.stocks[dto.name]) {
+                throw new WrongInput(`You don't have that stock in your portfolio!`);
+            }
+    
+            if (user.stocks[dto.name] < dto.quantity) {
+                throw new WrongInput(`You don't have enough of that stock!`);
+            }
+            const stockData = await this.stocksService.getSingleStockData(dto.name);
+            if (!stockData) {
+                throw new WrongInput('Invalid Stock!');
+            }
+            const sellingPrice = dto.quantity * stockData.price;
+            await this.balanceService.addBalance(user, { balance: sellingPrice }, { session });
+            const userStockBalanceUpdateQueryObject = (_ => {
+                if (user.stocks[dto.name] > dto.quantity) {
+                    return {
+                        $inc: {
+                            [`stocks.${dto.name}`]: -dto.quantity
+                        }
+                    };
+                }
                 return {
-                    $inc: {
-                        [`stocks.${dto.name}`]: -dto.quantity
+                    $unset: {
+                        [`stocks.${dto.name}`]: 1
                     }
                 };
+    
+            })();
+            await this.db.collection(Constants.USER_COLLECTION).updateOne({ email: user.email }, userStockBalanceUpdateQueryObject, { session });
+            await session.commitTransaction();
+        } catch (error) {
+            try {
+                await session.abortTransaction();
+            } catch (error) {
+                
             }
-            return {
-                $unset: {
-                    [`stocks.${dto.name}`]: 1
-                }
-            };
-
-        })();
-        await this.db.collection(Constants.USER_COLLECTION).updateOne({ email: user.email }, userStockBalanceUpdateQueryObject);
+            throw error;
+        }
     }
 
     async buyStocks(user: any, dto: BuyStocksDto) {

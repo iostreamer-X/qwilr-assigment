@@ -29,15 +29,19 @@ export class BalanceService {
         );
     }
 
-    async addBalance(user: any, dto: AddBalanceDto) {
-        const session = this.client.startSession();
+    async addBalance(user: any, dto: AddBalanceDto, options: any = { }) {
+        const session = options.session || this.client.startSession();
         try {
             await session.startTransaction();
             await this.incrementBalance(user.email, dto.balance, session);
-            await session.commitTransaction();
+            if (!options.session) {
+                await session.commitTransaction();
+            }
         } catch (error) {
             try {
-                await session.abortTransaction();
+                if (!options.session) {
+                    await session.abortTransaction();
+                }
             } catch (error) {
                 
             }

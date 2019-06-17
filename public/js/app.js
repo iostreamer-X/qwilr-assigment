@@ -7,6 +7,7 @@ $(document)
     handleBuy();
     handlePortfolio();
     handleSellModal();
+    handleSell();
 
     $('#buyError').hide();
     $('#buySuccess').hide();
@@ -28,6 +29,11 @@ function handleStockQuantity() {
     $('#addStockQuantity').click(function (params) {
         const quantity = Number($('#stockQuantity').val());
         $('#stockQuantity').val(quantity + 1); 
+    });
+
+    $('#addSellQuantity').click(function (params) {
+        const quantity = Number($('#sellQuantity').val());
+        $('#sellQuantity').val(quantity + 1); 
     });
 }
 
@@ -103,6 +109,34 @@ function handleBuy() {
             console.log(error);
             $('#buyError').show();
             $('#buyErrorMessage').text(error.responseJSON.error.message);
+        }  
+    })
+}
+
+function handleSell() {
+    $('#sellButton').click(async function (params) {
+        const stockName = $('#sellStockName').val();
+        const quantity = Number($('#sellQuantity').val());
+        try {
+            await request('/balance/stocks/sell', {
+                data: JSON.stringify({
+                    name: stockName,
+                    quantity
+                }),
+                type: 'POST'
+            });
+            await renderUpdatedBalance();
+            $('#sellError').hide();
+            $('#sellSuccess').show();
+            $('#sellQuantity').val('');
+            $('#sellStockName').val('');
+            setTimeout(function () {
+                $('#sellSuccess').hide();
+            }, 1500)
+        } catch (error) {
+            console.log(error);
+            $('#sellError').show();
+            $('#sellErrorMessage').text(error.responseJSON.error.message);
         }  
     })
 }
