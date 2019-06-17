@@ -6,9 +6,12 @@ $(document)
     handleStockQuantity();
     handleBuy();
     handlePortfolio();
+    handleSellModal();
 
     $('#buyError').hide();
     $('#buySuccess').hide();
+    $('#sellError').hide();
+    $('#sellSuccess').hide();
 });
 
 function viewCart(name, price) {
@@ -38,6 +41,13 @@ function handleAddToCart() {
         viewCart(stockName, stockPrice);
     });
 }
+
+function handleSellModal() {
+    $('#sellModalButton').click(function (event) {
+        $('#sellModal').modal('show');
+    });
+}
+
 
 function handleAddBalance() {
     $('#addBalanceButton').click(async function (event) {

@@ -5,14 +5,49 @@ import { BalanceService } from '../balance/balance.service';
 import { BuyStocksDto } from './dto/buy-stocks.dto';
 import { WrongInput } from '../../common/dto/WrongInput';
 import * as lodash from 'lodash';
+import { SellStocksDto } from './dto/sell-stocks.dto';
+import { StocksService } from '../stocks/stocks.service';
 
 @Injectable()
 export class PortfolioService {
     constructor(
         @Inject(Constants.DATABASE_SERVICE) readonly db: Db,
         @Inject(Constants.CLIENT_SERVICE) readonly client: MongoClient,
-        readonly balanceService: BalanceService
+        readonly balanceService: BalanceService,
+        readonly stocksService: StocksService
     ) {
+    }
+
+    async sellStocks(user: any, dto: SellStocksDto) {
+        if (!user.stocks || !user.stocks[dto.name]) {
+            throw new WrongInput(`You don't have that stock in your portfolio!`);
+        }
+
+        if (user.stocks[dto.name] < dto.quantity) {
+            throw new WrongInput(`You don't have enough of that stock!`);
+        }
+        const stockData = await this.stocksService.getSingleStockData(dto.name);
+        if (!stockData) {
+            throw new WrongInput('Invalid Stock!');
+        }
+        const sellingPrice = dto.quantity * stockData.price;
+        await this.balanceService.addBalance(user, { balance: sellingPrice });
+        const userStockBalanceUpdateQueryObject = (_ => {
+            if (user.stocks[dto.name] > dto.quantity) {
+                return {
+                    $inc: {
+                        [`stocks.${dto.name}`]: -dto.quantity
+                    }
+                };
+            }
+            return {
+                $unset: {
+                    [`stocks.${dto.name}`]: 1
+                }
+            };
+
+        })();
+        await this.db.collection(Constants.USER_COLLECTION).updateOne({ email: user.email }, userStockBalanceUpdateQueryObject);
     }
 
     async buyStocks(user: any, dto: BuyStocksDto) {
@@ -59,35 +94,21 @@ export class PortfolioService {
                     $match: { email: user.email }
                 },
                 {
-                    $facet: {
-                        aggregatedData: [
-                            {
-                                $group: {
-                                    _id: { email: "$email", stockName: "$name" },
-                                    count: { $sum: "$quantity" },
-                                }
-                            }       
-                        ],
-                        totalData: [
-                            {
-                                $project: {
-                                    name: 1,
-                                    boughtAtPrice: 1,
-                                    quantity: 1,
-                                    createdAt: 1
-                                }
-                            }
-                        ]
+                    $project: {
+                        name: 1,
+                        boughtAtPrice: 1,
+                        quantity: 1,
+                        createdAt: 1
                     }
                 }
             ]
         ).toArray();
 
-        return data;
+        return { aggregatedData: Object.keys(user.stocks).map(key => ({stockName: key, count: user.stocks[key]})), totalData: data };
     }
 
     async renderPortfolio(user, res) {
         const data = await this.get(user);
-        res.render('portfolio', { portfolio: data[0] });
+        res.render('portfolio', { portfolio: data });
     }
 }

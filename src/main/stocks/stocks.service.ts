@@ -12,4 +12,8 @@ export class StocksService {
     async getStockData() {
         return this.db.collection(Constants.STOCK_MASTER_DATA_COLLECTION).find().toArray();
     }
+
+    async getSingleStockData(name: string) {
+        return this.db.collection(Constants.STOCK_MASTER_DATA_COLLECTION).findOne({ name });
+    }
 }

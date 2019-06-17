@@ -16,6 +16,7 @@ html
                   input#amount(type="text" placeholder="Amount")
                   button.ui.button#addBalanceButton Add Balance
               td.right.aligned
+                button.ui.button#sellModalButton Sell
                 button.ui.button#portfolioButton Portfolio
     div.ui.grid#dataView
       div.sixteen.wide.column
@@ -57,4 +58,23 @@ html
           div.ui.negative.message#buyError
             p#buyErrorMessage
           div.ui.positive.message#buySuccess
+            p Stock bought successfully!
+      div.tiny.ui.modal#sellModal
+        div.teal.header Sell Stocks
+        div.content
+          table
+            tr
+              td.two.wide
+                div.ui.input
+                  input(type='text', placeholder='Stock Name')#sellStockQuantity
+              td.right.aligned
+                div.ui.right.action.input
+                  input(type='text', placeholder='Quantity')#sellQuantity
+                  button.ui.icon.button#addSellQuantity
+                    i.add.icon
+        div.actions
+          button.ui.button#sellButton Sell
+          div.ui.negative.message#sellError
+            p#sellErrorMessage
+          div.ui.positive.message#sellSuccess
             p Stock bought successfully!
