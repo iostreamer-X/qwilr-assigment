@@ -21,7 +21,7 @@ export class RootController {
     
     @Get('/app')
 	app(@Req() req, @Res() res) {
-		return this.rootService.renderApp(req.user, res);
+		return this.rootService.renderApp(req, res);
     }
 
     @Get('/portfolio')

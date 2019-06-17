@@ -8,6 +8,7 @@ $(document)
     handlePortfolio();
     handleSellModal();
     handleSell();
+    handleSearchStock();
 
     $('#buyError').hide();
     $('#buySuccess').hide();
@@ -29,6 +30,18 @@ function handleStockQuantity() {
     $('#addStockQuantity').click(function (params) {
         const quantity = Number($('#stockQuantity').val());
         $('#stockQuantity').val(quantity + 1); 
+    });
+
+    $('#addSellQuantity').click(function (params) {
+        const quantity = Number($('#sellQuantity').val());
+        $('#sellQuantity').val(quantity + 1); 
+    });
+}
+
+function handleSearchStock() {
+    $('#searchStockButton').click(function (params) {
+        const name = $('#searchStockName').val();
+        window.location.href = `/app?searchStock=${name}`;
     });
 
     $('#addSellQuantity').click(function (params) {

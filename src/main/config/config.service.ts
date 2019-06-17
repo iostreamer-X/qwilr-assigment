@@ -14,7 +14,9 @@ export class ConfigService {
 	validateConfig(config: KeyValue) {
 		const configSchema = Joi.object({
 			mongoOptions: Joi.object().required(),
-			jwtSecretKey: Joi.string().required()
+			jwtSecretKey: Joi.string().required(),
+			alpacaKeyId: Joi.string().required(),
+			alpacaSecretKey: Joi.string().required(),
 		});
 
 		const { error, value: validatedConfig } = Joi.validate(config, configSchema);
@@ -35,5 +37,13 @@ export class ConfigService {
 
 	getJWTSecretKey() {
 		return this.get('jwtSecretKey');
+	}
+
+	getAlpacaSecretKey() {
+		return this.get('alpacaSecretKey');
+	}
+
+	getAlpacaKeyId() {
+		return this.get('alpacaKeyId');
 	}
 }
